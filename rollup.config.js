@@ -12,8 +12,10 @@ const plugins = [
 
 const configs = glob.sync('src/**/sketch.js').map(input => ({
   input,
+  external: ['pixi.js'],
+  globals: { 'pixi.js': 'PIXI' },
   output: [{ file: input.replace(/^src/, 'dist'), format: 'umd' }],
-  plugins: [...plugins, html()],
+  plugins: [...plugins, html({ template: './template.html' })],
 }));
 
 export default configs;
