@@ -7,6 +7,7 @@
   "license": "MIT",
   "private": true,
   "devDependencies": {
+    "@gen/rollup-plugin-generate-html": "^0.1.1",
     "babel-eslint": "^8.0.2",
     "babel-plugin-external-helpers": "^6.22.0",
     "babel-plugin-transform-runtime": "^6.23.0",
@@ -25,7 +26,7 @@
     "rollup-plugin-node-resolve": "^3.0.0"
   },
   "dependencies": {
-    "@gen/rollup-plugin-generate-html": "^0.1.1"
+    "@gen/math": "^0.0.1"
   },
   "scripts": {
     "clean": "rm -rf dist",
