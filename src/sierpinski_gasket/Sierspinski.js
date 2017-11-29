@@ -1,5 +1,4 @@
 // @flow
-import * as math from '@gen/math';
 import { Point } from './Point';
 
 type MidPoint = (Point, Point) => Point;
