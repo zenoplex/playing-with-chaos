@@ -12,6 +12,7 @@ const graphic = new PIXI.Graphics();
 container.addChild(graphic);
 app.stage.addChild(container);
 
+const depth = 8;
 const radius = Math.min(width, height) / 2;
 const center = new Point(width / 2, height / 2);
 const a = new Point(center.x - radius, center.y + radius); // bottom left
@@ -20,23 +21,28 @@ const c = new Point(center.x + radius, center.y + radius); // bottom right
 
 type Draw = (any[]) => void;
 const draw: Draw = (list) => {
-  const len = list.length;
-  for (let i = 0; i < len; i++) {
-    const element = list[i];
-
-    if (Array.isArray(element)) draw(element);
-
+  if (Array.isArray(list[0])) {
+    draw(list[0]);
+    draw(list[1]);
+    draw(list[2]);
+  } else if (list[0] instanceof Point) {
     graphic.lineStyle(1, 0xffffff);
-    graphic.beginFill(0xffffff);
-    if (i === 0) graphic.moveTo(element.x, element.y);
-    else graphic.lineTo(element.x, element.y);
-    if (i === len - 1) graphic.lineTo(list[0].x, list[0].y);
+    graphic.beginFill(0xffffff, 0.4);
+    graphic.moveTo(list[0].x, list[0].y);
+    graphic.lineTo(list[1].x, list[1].y);
+    graphic.lineTo(list[2].x, list[2].y);
+    graphic.closePath();
+    graphic.endFill();
   }
-  graphic.endFill();
 };
 
-const render = () => {
-  const points = sierpinski.plot(a, b, c)(7);
+const render = (count = 0) => {
+  graphic.clear();
+
+  const next = count + 1;
+  const points = sierpinski.plot(a, b, c)(next);
   draw(points);
+
+  if (next < depth) setTimeout(() => render(next), 200);
 };
 render();
