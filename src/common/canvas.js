@@ -5,8 +5,6 @@ type Setup = (*) => PIXI.Application;
 export const setup: Setup = (options) => {
   const app = new PIXI.Application(options);
   app.renderer.autoResize = true;
-  app.view.style.width = '100%';
-  app.view.style.height = '100%';
   if (document.body) document.body.appendChild(app.view);
   return app;
 };
