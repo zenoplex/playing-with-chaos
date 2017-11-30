@@ -36,7 +36,7 @@ const draw: Draw = (list) => {
 };
 
 const render = () => {
-  const points = sierpinski.draw(a, b, c)(7);
+  const points = sierpinski.plot(a, b, c)(7);
   draw(points);
 };
 render();

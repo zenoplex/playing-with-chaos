@@ -6,8 +6,9 @@ const midPoint: MidPoint = (a, b) =>
   new Point((a.x + b.x) / 2, (a.y + b.y) / 2);
 
 type Level = number;
-type Draw = (Point, Point, Point) => Level => *;
-export const draw: Draw = (a, b, c) => (level) => {
+// type Points = Point[] | Points[]; This doesn't work
+type Plot = (Point, Point, Point) => Level => any[];
+export const plot: Plot = (a, b, c) => (level) => {
   if (level === 0) {
     return [a, b, c];
   }
@@ -17,9 +18,9 @@ export const draw: Draw = (a, b, c) => (level) => {
   const b2c = midPoint(b, c);
   const c2a = midPoint(c, a);
 
-  const ap = draw(a, a2b, c2a)(next); // bottom left
-  const bp = draw(a2b, b, b2c)(next); // top
-  const cp = draw(c2a, b2c, c)(next); // bottom right
+  const ap = plot(a, a2b, c2a)(next); // bottom left
+  const bp = plot(a2b, b, b2c)(next); // top
+  const cp = plot(c2a, b2c, c)(next); // bottom right
 
   return [ap, bp, cp];
 };
