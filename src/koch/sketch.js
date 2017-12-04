@@ -6,11 +6,16 @@ import { Point } from '../common/Point';
 
 const winWidth = window.innerWidth;
 const winHeight = window.innerHeight;
-const app = canvas.setup({ width: winWidth, height: winHeight, background: 0 });
+const app = canvas.setup({
+  width: winWidth,
+  height: winHeight,
+  background: 0,
+  roundPixels: true,
+});
 const graphic = new PIXI.Graphics();
 app.stage.addChild(graphic);
 
-const maxDepth = 6;
+const maxDepth = 5;
 let depth = 0;
 let mod = 1;
 
@@ -31,7 +36,7 @@ const render = () => {
   const len = points.length;
   for (let i = 0; i < len; i++) {
     const point = points[i];
-    graphic.lineStyle(2, 0xffffff);
+    graphic.lineStyle(1, 0xffffff);
     if (i === 0) graphic.moveTo(point.x, point.y);
     graphic.lineTo(point.x, point.y);
   }
