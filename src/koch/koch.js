@@ -1,5 +1,4 @@
 // @flow
-import * as math from '@gen/math';
 import { Point } from '../common/Point';
 
 type Depth = number;
@@ -13,22 +12,21 @@ export const plot: Plot = (p0, p1) => (depth) => {
   const angle = Math.atan2(dy, dx);
 
   const pa = new Point(
-    p0.x + math.cos(angle) * unit,
-    p0.y + math.sin(angle) * unit,
+    p0.x + Math.cos(angle) * unit,
+    p0.y + Math.sin(angle) * unit,
   );
-  // NOTE: bug in @gen/math
   const rad60 = Math.PI / 3;
   const pb = new Point(
-    pa.x + math.cos(angle - rad60) * unit,
-    pa.y + math.sin(angle - rad60) * unit,
+    pa.x + Math.cos(angle - rad60) * unit,
+    pa.y + Math.sin(angle - rad60) * unit,
   );
   const pc = new Point(
-    p0.x + math.cos(angle) * unit * 2,
-    p0.y + math.sin(angle) * unit * 2,
+    p0.x + Math.cos(angle) * unit * 2,
+    p0.y + Math.sin(angle) * unit * 2,
   );
 
   if (depth === 0) {
-    return [p0, p1];
+    return [p0, pa, pb, pc, p1];
   }
 
   const next = depth - 1;
