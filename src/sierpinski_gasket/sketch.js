@@ -1,7 +1,7 @@
 // @flow
 import PIXI from 'pixi.js';
 import * as canvas from '../common/canvas';
-import * as sierpinski from './Sierspinski';
+import * as sierpinski from './sierspinski';
 import { Point } from './Point';
 
 const winWidth = window.innerWidth;
