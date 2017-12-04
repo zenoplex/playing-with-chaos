@@ -1,5 +1,5 @@
 // @flow
-import { Point } from './Point';
+import { Point } from '../common/Point';
 
 type MidPoint = (Point, Point) => Point;
 const midPoint: MidPoint = (a, b) =>

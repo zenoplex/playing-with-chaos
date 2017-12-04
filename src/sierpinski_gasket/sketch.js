@@ -2,7 +2,7 @@
 import PIXI from 'pixi.js';
 import * as canvas from '../common/canvas';
 import * as sierpinski from './sierspinski';
-import { Point } from './Point';
+import { Point } from '../common/Point';
 
 const winWidth = window.innerWidth;
 const winHeight = window.innerHeight;
