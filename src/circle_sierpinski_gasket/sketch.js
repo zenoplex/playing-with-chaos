@@ -20,6 +20,7 @@ const minDepth = 2;
 let numShapes = 3;
 let depth = minDepth;
 let mod = 1;
+const angleOffset = Math.random();
 
 const reset = () => {
   graphic.clear();
@@ -34,7 +35,7 @@ const render = () => {
   const height = window.innerHeight;
   const radius = Math.min(width, height) / 5;
   const center = new Point(width / 2, height / 2);
-  const shapes = sirpinski.plot(center, radius, numShapes, 0.5)(depth);
+  const shapes = sirpinski.plot(center, radius, numShapes, 0.5, angleOffset)(depth);
 
   const len = shapes.length;
   for (let i = 0; i < len; i++) {
