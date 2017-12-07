@@ -2,8 +2,13 @@
 import * as math from '@gen/math';
 import { Point } from '../common/Point';
 
-type Plot = (Point, number, number) => number => any;
-export const plot: Plot = (point, radius, shapeCount) => (depth) => {
+type Shape = {
+  position: Point,
+  radius: number,
+};
+
+type Plot = (Point, number, number, number) => number => Shape[];
+export const plot: Plot = (point, radius, shapeCount, scale = 0.5) => (depth) => {
   if (depth === 0) {
     return [
       {
@@ -14,28 +19,18 @@ export const plot: Plot = (point, radius, shapeCount) => (depth) => {
   }
 
   const next = depth - 1;
-  const nextRadius = radius * 0.4;
+  const nextRadius = radius * scale;
 
-  const p0 = new Point(
-    point.x + math.cos(0) * radius,
-    point.y + math.sin(0) * radius,
-  );
+  // want to use reduce but too slow
+  let list = [];
+  for (let i = 0; i < shapeCount; i++) {
+    const angle = math.TWO_PI / shapeCount * i;
+    const p = new Point(
+      point.x + math.cos(angle) * radius,
+      point.y + math.sin(angle) * radius,
+    );
+    list = list.concat(plot(p, nextRadius, shapeCount, scale)(next));
+  }
 
-  const rad120 = Math.PI * 2 / 3;
-  const p1 = new Point(
-    point.x + math.cos(rad120) * radius,
-    point.y + math.sin(rad120) * radius,
-  );
-
-  const rad240 = Math.PI * 4 / 3;
-  const p2 = new Point(
-    point.x + math.cos(rad240) * radius,
-    point.y + math.sin(rad240) * radius,
-  );
-
-  return [
-    ...plot(p0, nextRadius, shapeCount)(next),
-    ...plot(p1, nextRadius, shapeCount)(next),
-    ...plot(p2, nextRadius, shapeCount)(next),
-  ];
+  return list;
 };
