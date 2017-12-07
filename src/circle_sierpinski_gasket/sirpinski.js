@@ -7,7 +7,7 @@ type Shape = {
   radius: number,
 };
 
-type Plot = (Point, number, number, number) => number => Shape[];
+type Plot = (Point, number, number, number, number) => number => Shape[];
 export const plot: Plot = (
   point,
   radius,
