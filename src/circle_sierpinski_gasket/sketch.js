@@ -15,9 +15,10 @@ const app = canvas.setup({
 const graphic = new PIXI.Graphics();
 app.stage.addChild(graphic);
 
-const maxDepth = 5;
-const depth = 0;
-const mod = 1;
+const maxDepth = 8;
+const minDepth = 2;
+let depth = minDepth;
+let mod = 1;
 
 const reset = () => {
   graphic.clear();
@@ -29,8 +30,7 @@ const render = () => {
   const height = window.innerHeight;
   const radius = Math.min(width, height) / 5;
   const center = new Point(width / 2, height / 2);
-
-  const shapes = sirpinski.plot(center, radius, 3)(maxDepth);
+  const shapes = sirpinski.plot(center, radius, 3, 0.5)(depth);
 
   const len = shapes.length;
   for (let i = 0; i < len; i++) {
@@ -39,11 +39,14 @@ const render = () => {
     graphic.drawCircle(position.x, position.y, rad);
     graphic.endFill();
   }
+
+  if (depth <= minDepth) mod = 1;
+  else if (depth >= maxDepth) mod = -1;
+
+  depth += mod;
 };
 
-render();
-
-// setInterval(render, 500);
+setInterval(render, 200);
 
 window.addEventListener('resize', () => {
   canvas.resize(window.innerWidth, window.innerHeight)(app);
