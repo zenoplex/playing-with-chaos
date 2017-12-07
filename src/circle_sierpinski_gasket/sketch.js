@@ -17,16 +17,20 @@ app.stage.addChild(graphic);
 
 let maxDepth = 8;
 const minDepth = 2;
-let numShapes = 3;
-let depth = minDepth;
-let mod = 1;
 const angleOffset = Math.random();
+const maxShapes = 5;
+const minShapes = 3;
+let numShapes = minShapes;
+const numShapesMod = 1;
+let depth = minDepth;
+let depthMod = 1;
 
 const reset = () => {
   graphic.clear();
-  const minShapes = 3;
-  numShapes = Math.floor(Math.random() * 5) + minShapes;
-  maxDepth = 11 - numShapes;
+
+  if (numShapes > maxShapes) numShapes = minShapes;
+  numShapes += numShapesMod;
+  maxDepth = Math.floor(8 - numShapes / 2);
 };
 
 const render = () => {
@@ -45,10 +49,10 @@ const render = () => {
     graphic.endFill();
   }
 
-  if (depth <= minDepth) mod = 1;
-  else if (depth >= maxDepth) mod = -1;
+  if (depth <= minDepth) depthMod = 1;
+  else if (depth >= maxDepth) depthMod = -1;
 
-  depth += mod;
+  depth += depthMod;
 };
 
 setInterval(render, 400);
